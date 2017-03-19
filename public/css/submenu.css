@@ -1,0 +1,171 @@
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu>.dropdown-menu {
+    top:0;
+    left:100%;
+    margin-top:-6px;
+    margin-left:-1px;
+    -webkit-border-radius:0 6px 6px 6px;
+    -moz-border-radius:0 6px 6px 6px;
+    border-radius:0 6px 6px 6px;
+}
+@media (min-width: 0) and (max-width:768px){
+
+
+    
+    .dropdown-submenu>.dropdown-menu {
+        top: 100%;
+        left:0;
+    }
+
+    a>span.glyphicon-pencil:after{
+        content: ' Редактировать';
+    }
+}
+
+@media (min-width: 768px){
+
+    .dropdown-submenu:hover>.dropdown-menu {
+        display:block;
+    }
+    
+    .dropdown-submenu>a:after {
+        display:block;
+    }
+}
+
+.folder_name:hover {
+    box-shadow: 5px 5px 1px rgba(0,0,0,0.5), 0px 0px 2px rgba(0,0,0,0.9) ;
+    
+}
+.folder_name:after {
+    content: '>';
+    position: absolute;
+    top: 20%;
+    right: 5px;
+    font-weight: bold;
+}
+.folder_name:hover:after{
+    content: '';
+}
+.dropdown-submenu>a:after {
+    content:" ";
+    float:right;
+    width:0;
+    height:0;
+    border-color:transparent;
+    border-style:solid;
+    border-width:5px 0 5px 5px;
+    border-left-color:#cccccc;
+    margin-top:5px;
+    margin-right:-10px;
+}
+.dropdown-submenu:hover>a:after {
+    border-left-color:#ffffff;
+}
+.dropdown-submenu.pull-left {
+    float:none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left:-100%;
+    margin-left:10px;
+    -webkit-border-radius:6px 0 6px 6px;
+    -moz-border-radius:6px 0 6px 6px;
+    border-radius:6px 0 6px 6px;
+}
+.dropdown-menu{
+    min-width: 100%;
+}
+.item_site{
+    position: relative;
+    min-width: 250px;
+    min-height: 74px;
+}
+
+.main_folder>a>.item_site{
+    min-height: 90px;
+    
+}
+
+.site_name{
+    transition: all ease 0.3s;
+    display: block;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: lightgray;
+    text-align: center;
+}
+
+.item_site.btn:hover{
+    box-shadow:  5px 5px 1px rgba(1, 0, 0, 0.3);
+
+}
+
+.item_site.btn:hover >.site_name{
+    color: white;
+    background: black;
+    
+}
+.folder.dropdown-menu, .folder.dropdown-submenu{
+    box-shadow: 5px 5px 1px rgba(0,0,0,0.5), 0px 0px 2px rgba(0,0,0,0.9) ;
+}
+
+
+
+.button-control{
+    opacity:0.8;
+    cursor: default;
+    width: 26px;
+    height: 26px;
+    border: 1.1px solid rgba(0,0,0,0.2);
+
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+    background: #fff none repeat scroll 0 0;
+
+    z-index: 10;
+    position: absolute;
+    
+  /*     
+    box-shadow:  -1px 1px 0.3px rgba(0, 0, 0, 0.3); 
+    
+
+    float: right;
+    border: 0px solid black;
+    border-radius: 100px;
+    
+    */  
+}
+.button-control:hover {
+    background: white;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.5); 
+    border-color: black;
+}
+/*
+button.remove_folder,button.edit_folder, button.edit_site {
+   float: left;
+}*/
+
+button.edit_folder,button.edit_site{
+   /* box-shadow:  -1px 1px 0.3px rgba(0, 200, 0, 0.3); */
+    border-radius: 10px 0 0 10px ;
+    
+    
+    color: forestgreen;
+    left: -26px;
+    top: 0;
+}
+button.remove_folder,button.remove_site{
+   /* box-shadow:  -1px 1px 0.3px rgba(200, 0, 0, 0.3); */
+    border-radius: 0 10px 10px 0 ;
+
+    
+    color: red;
+    right: -26px;
+    top: 0;
+}
