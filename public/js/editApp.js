@@ -49,9 +49,9 @@
             event.preventDefault();
             event.stopPropagation();
             
-            type = $(this).parent().children("input[name='type']").val();
-            parent_id = $(this).parent().children("input[name='parent_id']").val();
-            name = $(this).parent().children("label").children("input[name='name']").val();
+            var type = $(this).parent().children("input[name='type']").val();
+            var parent_id = $(this).parent().children("input[name='parent_id']").val();
+            var name = $(this).parent().children("label").children("input[name='name']").val();
             
             
             alert('It`s gone : type - '+type+' parent_id - '+parent_id+' name - '+name);
@@ -72,10 +72,10 @@
             event.preventDefault();
             event.stopPropagation();
             
-            type = $(this).parent().children("input[name='type']").val();
-            parent_id = $(this).parent().children("input[name='parent_id']").val();
-            name = $(this).parent().children("label").children("input[name='name']").val();
-            url = $(this).parent().children("label").children("input[name='url']").val();
+            var type = $(this).parent().children("input[name='type']").val();
+            var parent_id = $(this).parent().children("input[name='parent_id']").val();
+            var name = $(this).parent().children("label").children("input[name='name']").val();
+            var url = $(this).parent().children("label").children("input[name='url']").val();
             
             alert('It`s gone : type - '+type+' parent_id - '+parent_id+' name - '+name+' url - '+url);
             
@@ -109,9 +109,9 @@
             event.preventDefault();
             event.stopPropagation();
             
-            type = $(this).parent().children("input[name='type']").val();
-            id = $(this).parent().children("input[name='id']").val();
-            name = $(this).parent().children("label").children("input[name='name']").val();
+            var type = $(this).parent().children("input[name='type']").val();
+            var id = $(this).parent().children("input[name='id']").val();
+            var name = $(this).parent().children("label").children("input[name='name']").val();
             
             
             alert('It`s gone : type - '+type+' id - '+id+' name - '+name);
@@ -132,10 +132,10 @@
             event.preventDefault();
             event.stopPropagation();
             
-            type = $(this).parent().children("input[name='type']").val();
-            id = $(this).parent().children("input[name='id']").val();
-            name = $(this).parent().children("label").children("input[name='name']").val();
-            url = $(this).parent().children("label").children("input[name='url']").val();
+            var type = $(this).parent().children("input[name='type']").val();
+            var id = $(this).parent().children("input[name='id']").val();
+            var name = $(this).parent().children("label").children("input[name='name']").val();
+            var url = $(this).parent().children("label").children("input[name='url']").val();
             
             alert('It`s gone : type - '+type+' id - '+id+' name - '+name+' url - '+url);
             
@@ -154,10 +154,10 @@
         });
         
         
-        //подстановка URL`а без 'http://' в input[ name ]
-        $("input[name='url']").on('blur',function(event){
-            url = $(this).val();
-            name_input = $(this).parent().parent().children("label").children("input[name='name']");
+//        подстановка URL`а без 'http://' в input[ name ]
+        $("input[name='url']").on('keydown, blur',function(event){
+            var url = $(this).val();
+            var name_input = $(this).parent().parent().children("label").children("input[name='name']");
 
             if( /^https?:\/\/.*/.test(url) ){
                 name_input.prop('value', ( /^https?:\/\/(.*)/.exec(url) )[1] );
@@ -166,22 +166,38 @@
                 name_input.prop('value', url);
             }
         });    
+//            $("input[name='name']").on('focus',function(event){
+//            url =  $(this).parent().parent().children("label").children("input[name='url']").val();
+//            name_input =$(this);
+//
+//            if( /^https?:\/\/.*/.test(url) ){
+//                name_input.prop('value', ( /^https?:\/\/(.*)/.exec(url) )[1] );
+//            }
+//            else{
+//                name_input.prop('value', url);
+//            }
+//        });  
         
-        //автоподстановка `http://` в url и удаление такого случая : `http://http://`
-        $("input[name='url']").on('change, focus',function(event){
+        
+        autocomplite = function(event){
+            var url = $(this).val();
+            var correct_url = /^https?:\/\/.*/.test(url) || /^localhost.*/.test(url) ;
+            var double_http = /^https?:\/\/https?:\/\/.*/.test(url);
             
-            url = $(this).val();
-            correct_url = /^https?:\/\/.*/.test(url) || /^localhost.*/.test(url) ;
-            double_http = /^https?:\/\/https?:\/\/.*/.test(url);
-            if(! correct_url ){
+            if(double_http){
+                $(this).prop('value', (/^https?:\/\/(.*)/.exec(url))[1] );
+            }else if(! correct_url ){
                 $(this).prop('value', 'http://'+url);
             }
-            else if(double_http){
-                $(this).prop('value', (/^https?:\/\/(.*)/.exec(url))[1] );
+        };
+        //автоподстановка `http://` в url и удаление такого случая : `http://http://`
+        $("input[name='url']").on('keydown', function(event){
+            if( $(this).val().length > 8  ){
+                autocomplite.apply(this,event);
             }
-            
-            
         });
+        $("input[name='url']").on('focus', autocomplite);
+        $("input[name='url']").on('blur', autocomplite);
 
     });
 })(jQuery);

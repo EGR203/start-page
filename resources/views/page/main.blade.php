@@ -1,5 +1,6 @@
 <?php 
-use App\MyFunctions\ViewHelper;
+
+use App\OutputHelp\ViewHelper;
 $editMode = isset($editMode)? $editMode : false;
 $helper = new ViewHelper($sitesList, $editMode);
 
@@ -16,7 +17,15 @@ $helper = new ViewHelper($sitesList, $editMode);
         <div class="col-md-7 ">
                 {{ $helper->showMainFolder() }}
         </div>
-        <div class="col-md-2">Левая часть </div>
+        <div class="col-md-3">
+            <blockquote>
+                {{ $blockquote->text }}
+                <small>
+                    {{ $blockquote->author }}
+                </small>
+            </blockquote>
+
+        </div>
     {{ $helper->showModelContainer() }}
     </div>
         

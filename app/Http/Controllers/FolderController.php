@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Folder;
 use App\Site;
+use App\Blockquote;
 
 class FolderController extends Controller
 {
@@ -145,8 +146,10 @@ class FolderController extends Controller
             abort(404);
         }
         $sitesList = $folder->getContent();
-
-        return view('page.main')->with(['sitesList' => $sitesList, 'editMode' => true]);
+        
+        
+        $blockquote = Blockquote::getRandom();
+        return view('page.main')->with(['sitesList' => $sitesList, 'editMode' => true, 'blockquote' => $blockquote ]);
     }
     
     public function index(){
@@ -156,7 +159,11 @@ class FolderController extends Controller
             $folder->sites()->saveMany( Site::getDefaultCollection() );
         }
         $sitesList = $folder->getContent();
+        
 
-        return view('page.main')->with('sitesList', $sitesList);
+        $blockquote = Blockquote::getRandom();
+        return view('page.main')->with(['sitesList'=> $sitesList, 'blockquote' => $blockquote ]);
     }
+    
+    
 }

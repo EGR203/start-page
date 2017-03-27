@@ -1,6 +1,6 @@
 <?php
 
-namespace App\MyFunctions;
+namespace App\OutputHelp;
 
 class ViewHelper{
     
