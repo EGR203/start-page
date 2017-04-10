@@ -14,7 +14,7 @@ class FolderController extends Controller
     public function remove(Request $request){
         $user = \Auth::getUser();
         $json = $request->all();
-
+        
 
         if(!isset($json['type']) || ! isset($json['id'])){
             return \Response::json('data no set', 403);
@@ -149,7 +149,7 @@ class FolderController extends Controller
         
         
         $blockquote = Blockquote::getRandom();
-        return view('page.main')->with(['sitesList' => $sitesList, 'editMode' => true, 'blockquote' => $blockquote ]);
+        return view('page.main')->with(['content' => $sitesList, 'editMode' => true, 'blockquote' => $blockquote ]);
     }
     
     public function index(){
@@ -162,8 +162,9 @@ class FolderController extends Controller
         
 
         $blockquote = Blockquote::getRandom();
-        return view('page.main')->with(['sitesList'=> $sitesList, 'blockquote' => $blockquote ]);
+        return view('page.main')->with(['content'=> $sitesList, 'blockquote' => $blockquote ]);
     }
     
+
     
 }

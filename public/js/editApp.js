@@ -15,7 +15,7 @@
 			$(this).parent().toggleClass('open');
 		});
         
-        //Удаление папки и сайта
+        //AJAX delete - Удаление папки и сайта
         $('button.remove_site, button.remove_folder').on('click',function(event){
             
             if( $(this).hasClass('remove_site') ){
@@ -43,14 +43,14 @@
         });
         
         
-        // добавление папки
+        //AJAX add -  добавление папки
         $('button.submit_create_folder').on('click',function(event){
             
             event.preventDefault();
             event.stopPropagation();
             
             var type = $(this).parent().children("input[name='type']").val();
-            var parent_id = $(this).parent().children("input[name='parent_id']").val();
+            var parent_id = $(this).parent().children("input[name='id']").val();
             var name = $(this).parent().children("label").children("input[name='name']").val();
             
             
@@ -66,14 +66,14 @@
             return false;
         });
         
-        //добавление сайта
+        //AJAX add - добавление сайта
         $('button.submit_create_site').on('click',function(event){
             
             event.preventDefault();
             event.stopPropagation();
             
             var type = $(this).parent().children("input[name='type']").val();
-            var parent_id = $(this).parent().children("input[name='parent_id']").val();
+            var parent_id = $(this).parent().children("input[name='id']").val();
             var name = $(this).parent().children("label").children("input[name='name']").val();
             var url = $(this).parent().children("label").children("input[name='url']").val();
             
@@ -103,8 +103,8 @@
             
             return false;
         });
-        // изменение папки
-        $('button.submit_edit_folder').on('click',function(event){
+        //AJAX update -  изменение папки
+        $('button.submit_update_folder').on('click',function(event){
             
             event.preventDefault();
             event.stopPropagation();
@@ -126,8 +126,8 @@
             return false;
         });
         
-        //изменение сайта
-        $('button.submit_edit_site').on('click',function(event){
+        //AJAX update - изменение сайта
+        $('button.submit_update_site').on('click',function(event){
             
             event.preventDefault();
             event.stopPropagation();
@@ -156,14 +156,15 @@
         
 //        подстановка URL`а без 'http://' в input[ name ]
         $("input[name='url']").on('keydown, blur',function(event){
-            var url = $(this).val();
+            var url_input = $(this);
             var name_input = $(this).parent().parent().children("label").children("input[name='name']");
 
-            if( /^https?:\/\/.*/.test(url) ){
-                name_input.prop('value', ( /^https?:\/\/(.*)/.exec(url) )[1] );
+            if( /^https?:\/\/.*/.test(url_input.val()) ){
+                //перенос строки из URL в NAME input, причем подстрока "http(s)://" (один или многораз повторяющаяся) удаляется  
+                name_input.prop('value', ( /^(https?:\/\/)+(.*)/.exec(url_input.val()) )[2] ); 
             }
             else{
-                name_input.prop('value', url);
+                name_input.prop('value', url_input.val());
             }
         });    
 //            $("input[name='name']").on('focus',function(event){
@@ -180,14 +181,19 @@
         
         
         autocomplite = function(event){
-            var url = $(this).val();
-            var correct_url = /^https?:\/\/.*/.test(url) || /^localhost.*/.test(url) ;
-            var double_http = /^https?:\/\/https?:\/\/.*/.test(url);
             
-            if(double_http){
-                $(this).prop('value', (/^https?:\/\/(.*)/.exec(url))[1] );
-            }else if(! correct_url ){
-                $(this).prop('value', 'http://'+url);
+            var url_input = $(this);
+            var correct_url = /^https?:\/\/.*/.test(url_input.val()) || /^localhost.*/.test(url_input.val()) ;
+            
+            //double_HTTP
+            while(/^https?:\/\/https?:\/\/.*/.test(url_input.val())){  
+                url_input.prop('value', (/^https?:\/\/(.*)/.exec(url_input.val()))[1] );
+            }
+            
+            
+            
+            if(! correct_url ){
+                url_input.prop('value', 'http://'+url_input.val());
             }
         };
         //автоподстановка `http://` в url и удаление такого случая : `http://http://`

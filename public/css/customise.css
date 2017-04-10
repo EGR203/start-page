@@ -26,6 +26,7 @@
 
 @media (min-width: 768px){
 
+/*
     .dropdown-submenu:hover>.dropdown-menu {
         display:block;
     }
@@ -33,22 +34,24 @@
     .dropdown-submenu>a:after {
         display:block;
     }
+*/
 }
 
 .folder_name:hover {
     box-shadow: 5px 5px 1px rgba(0,0,0,0.5), 0px 0px 2px rgba(0,0,0,0.9) ;
     
 }
-.folder_name:after {
+.dropdown-submenu > .folder_name:after  {
     content: '>';
     position: absolute;
     top: 20%;
     right: 5px;
     font-weight: bold;
 }
-.folder_name:hover:after{
-    content: '';
+.folder_name{
+    box-shadow: 1px 0px 2px rgba(200, 200 , 250, 1 );
 }
+
 .dropdown-submenu>a:after {
     content:" ";
     float:right;

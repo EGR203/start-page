@@ -185,7 +185,7 @@ class ViewHelper{
 
 <!-- //////////////////////////  Додумать parent_id-->
 
-                            <input type="hidden" name="<?php if($action=='create'){echo 'parent_';} ?>id" value="<?php echo $id;?>">
+                            <input type="hidden" name="id" value="<?php echo $id;?>">
 
                             <?php 
                             if($typeContent == self::_site){
